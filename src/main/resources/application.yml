@@ -1,0 +1,35 @@
+#server configurations
+server:
+  port: 8081
+
+#Debug configurations
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+#Google calendar configurations
+google:
+  listEventUrl: https://www.googleapis.com/calendar/v3/calendars/primary/events
+app:
+  name: Event Planner
+  timeZone : +05:30
+  calendar:
+    id: primary
+#Spring Configurations
+spring:
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 162662766017-0bik6pg2kqsv2nkc818s4ec30124ppnc.apps.googleusercontent.com
+            client-secret: eYeIEPRDShJISVvEvm0pJYOj
+            authorizationGrantType: authorization_code
+            scope:
+              - email
+              - profile
+              - https://www.googleapis.com/auth/calendar
+
