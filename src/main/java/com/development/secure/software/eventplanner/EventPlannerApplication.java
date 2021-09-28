@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 
-@EnableAutoConfiguration (exclude = {ErrorMvcAutoConfiguration.class})
 @SpringBootApplication
 public class EventPlannerApplication {
 
