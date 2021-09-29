@@ -2,6 +2,8 @@ package com.development.secure.software.eventplanner.configuration;
 
 import com.development.secure.software.eventplanner.service.CalendarService;
 import com.development.secure.software.eventplanner.service.CalendarServiceImpl;
+import com.development.secure.software.eventplanner.service.DriveService;
+import com.development.secure.software.eventplanner.service.DriveServiceImpl;
 import com.development.secure.software.eventplanner.util.CustomRequestEntityConverter;
 import com.development.secure.software.eventplanner.util.GoogleTokenResponseConvertor;
 import org.springframework.context.annotation.Bean;
@@ -80,6 +82,22 @@ public class SpringSecOauthConfig extends WebSecurityConfigurerAdapter {
             }
         }
         return new CalendarServiceImpl(accessToken);
+    }
+
+    @Bean
+    @RequestScope
+    public DriveService driveService(OAuth2AuthorizedClientService clientService) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String accessToken = null;
+        if (authentication.getClass().isAssignableFrom(OAuth2AuthenticationToken.class)) {
+            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+            String clientRegistrationId = oauthToken.getAuthorizedClientRegistrationId();
+            if (clientRegistrationId.equals("google")) {
+                OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(clientRegistrationId, oauthToken.getName());
+                accessToken = client.getAccessToken().getTokenValue();
+            }
+        }
+        return new DriveServiceImpl(accessToken);
     }
 
 
