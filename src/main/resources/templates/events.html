@@ -131,7 +131,7 @@
     });
 
     $("#submit-btn").on("click", (event) => {
-
+        event.preventDefault()
         const summary = $("#summary").val()
         const description = $("#description").val()
         const startDate = $("#startDate").val()

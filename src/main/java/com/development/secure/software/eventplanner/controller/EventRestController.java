@@ -35,6 +35,7 @@ public class EventRestController {
     @PostMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "*")
     public ResponseEntity<EventResponseDTO> addNewEvent(@NotNull @RequestBody EventRequestDTO eventRequestDTO) throws IOException {
+        System.out.println("Came to the events endpoint");
         EventResponseDTO savedEventResponseDTO = calendarService.addEvent(eventRequestDTO);
         return new ResponseEntity<>(savedEventResponseDTO, HttpStatus.CREATED);
     }
