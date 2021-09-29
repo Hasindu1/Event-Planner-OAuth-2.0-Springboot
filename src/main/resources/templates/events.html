@@ -85,6 +85,7 @@
                             end: event.endDateTime
                         }
                     });
+                    calendar.removeAllEventSources();
                     calendar.addEventSource(formattedEvents);
                 }
             }
@@ -116,16 +117,16 @@
                     content: span,
                     icon: 'images/logo.jpg',
                 });
-
-
             }
 
         });
         calendar.render();
     });
 
+
     $("#submit-btn").on("click", (event) => {
         event.preventDefault()
+
         const summary = $("#summary").val()
         const description = $("#description").val()
         const startDate = $("#startDate").val()
@@ -141,7 +142,6 @@
             startTime,
             endTime
         }
-        console.log(data)
 
         $.ajax({
             type: "POST",
@@ -159,38 +159,6 @@
             }
         })
     })
-
-    // const addEvent = () => {
-    //     const summary = $("#summary").val()
-    //     const description = $("#description").val()
-    //     const startDate = $("#startDate").val()
-    //     const endDate = $("#endDate").val()
-    //     const startTime = $("#startTime").val()
-    //     const endTime = $("#endTime").val()
-    //
-    //     const data = {
-    //         summary,
-    //         description,
-    //         startDate,
-    //         endDate,
-    //         startTime,
-    //         endTime
-    //     }
-    //     console.log(data)
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "http://localhost:8081/api/events",
-    //         data: data,
-    //         success: (result) => {
-    //             console.log(result);
-    //             swal({
-    //                 title: "Success",
-    //                 content: "Event added successfully!",
-    //                 icon: 'images/logo.jpg',
-    //             });
-    //         }
-    //     })
-    // }
 </script>
 
 <!--------------------------------------------END Scripts----------------------------------------------------------->
