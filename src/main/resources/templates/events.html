@@ -44,6 +44,12 @@
                                 <label for="endTime">End Time </label>
                                 <input id="endTime" class="form-control" type="time" required>
                             </div>
+
+                            <div>
+                                <label for="files">Upload Banner image</label>
+                                <input id="files" class="form-control" type="file" name="files" multiple>
+                            </div>
+
                             <div>
                                 <input id="submit-btn" class="btn btn-primary" type="submit" value="Add Event">
                             </div>
@@ -124,6 +130,21 @@
     });
 
 
+    let uploadFile = () => {
+        var fd = new FormData();
+        var files = $('#files')[0].files;
+        fd.append('files', files[0]);
+
+        $.ajax({
+            url: 'http://localhost:8081/api/drive/upload-one',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+        });
+    }
+
+
     $("#submit-btn").on("click", (event) => {
         event.preventDefault()
 
@@ -145,10 +166,11 @@
 
         $.ajax({
             type: "POST",
-            contentType : "application/json",
+            contentType: "application/json",
             url: "http://localhost:8081/api/events",
             data: JSON.stringify(data),
             success: (result) => {
+                uploadFile();
                 console.log(result);
                 swal({
                     title: "Success",
@@ -158,6 +180,7 @@
                 getAllEvents();
             }
         })
+
     })
 </script>
 
