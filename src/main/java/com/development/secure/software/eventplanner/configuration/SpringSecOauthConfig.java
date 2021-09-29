@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -40,6 +41,7 @@ public class SpringSecOauthConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/api/google/grant", true).failureUrl("/login.html").tokenEndpoint()
                 .accessTokenResponseClient(this.accessTokenResponseClient());
         http.csrf().disable();
+
     }
 
     /**

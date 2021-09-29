@@ -148,10 +148,12 @@
             endTime
         }
         console.log(data)
+
         $.ajax({
             type: "POST",
+            contentType : "application/json",
             url: "http://localhost:8081/api/events",
-            data: data,
+            data: JSON.stringify(data),
             success: (result) => {
                 console.log(result);
                 swal({
@@ -159,6 +161,7 @@
                     content: "Event added successfully!",
                     icon: 'images/logo.jpg',
                 });
+                getAllEvents();
             }
         })
     })
