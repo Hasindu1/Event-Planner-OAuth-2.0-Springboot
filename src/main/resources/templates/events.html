@@ -50,7 +50,7 @@
                                 <input id="endTime" class="form-control" type="time" required>
                             </div>
                             <div>
-                                <input class="btn btn-primary" type="submit" value="Add Event" onclick="addEvent()">
+                                <input id="submit-btn" class="btn btn-primary" type="submit" value="Add Event">
                             </div>
                         </div>
                     </form>
@@ -130,7 +130,8 @@
         calendar.render();
     });
 
-    const addEvent = () => {
+    $("#submit-btn").on("click", (event) => {
+
         const summary = $("#summary").val()
         const description = $("#description").val()
         const startDate = $("#startDate").val()
@@ -160,7 +161,39 @@
                 });
             }
         })
-    }
+    })
+
+    // const addEvent = () => {
+    //     const summary = $("#summary").val()
+    //     const description = $("#description").val()
+    //     const startDate = $("#startDate").val()
+    //     const endDate = $("#endDate").val()
+    //     const startTime = $("#startTime").val()
+    //     const endTime = $("#endTime").val()
+    //
+    //     const data = {
+    //         summary,
+    //         description,
+    //         startDate,
+    //         endDate,
+    //         startTime,
+    //         endTime
+    //     }
+    //     console.log(data)
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "http://localhost:8081/api/events",
+    //         data: data,
+    //         success: (result) => {
+    //             console.log(result);
+    //             swal({
+    //                 title: "Success",
+    //                 content: "Event added successfully!",
+    //                 icon: 'images/logo.jpg',
+    //             });
+    //         }
+    //     })
+    // }
 </script>
 
 <!--------------------------------------------END Scripts----------------------------------------------------------->
