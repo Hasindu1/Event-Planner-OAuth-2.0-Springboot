@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -32,9 +34,9 @@ public class EventRestController {
      * @return
      * @throws IOException
      */
-    @PostMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/events", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "*")
-    public ResponseEntity<EventResponseDTO> addNewEvent(@NotNull @RequestBody EventRequestDTO eventRequestDTO) throws IOException {
+    public ResponseEntity<EventResponseDTO> addNewEvent(@NotNull @RequestBody EventRequestDTO eventRequestDTO, BindingResult errors) throws IOException {
 
         EventResponseDTO savedEventResponseDTO = calendarService.addEvent(eventRequestDTO);
         return new ResponseEntity<>(savedEventResponseDTO, HttpStatus.CREATED);
