@@ -39,6 +39,7 @@ public class SpringSecOauthConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().anyRequest().authenticated().and().oauth2Login().loginPage("/login.html")
                 .defaultSuccessUrl("/api/google/grant", true).failureUrl("/login.html").tokenEndpoint()
                 .accessTokenResponseClient(this.accessTokenResponseClient());
+        http.csrf().disable();
     }
 
     /**
