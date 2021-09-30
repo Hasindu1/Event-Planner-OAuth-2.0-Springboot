@@ -19,7 +19,6 @@ app:
   timeZone : +05:30
   calendar:
     id: primary
-
 #Spring Configurations
 spring:
   resources:
