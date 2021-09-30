@@ -3,46 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Events Management</title>
+    <link rel="icon" href="images/logo.ico">
     <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
     <link rel="stylesheet" href="css/events.css">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
 
 <body>
-
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top mr-3">
+            Event Planner
+        </a>
+    </div>
+</nav>
 <div>
-    <div class="p-5">
+    <div class="px-5 mt-4 mb-5">
         <div class="d-flex">
             <div id="calendar" class="main-container"></div>
 
-            <div class="px-5">
+            <div class="w-100 pl-5">
                 <h3>Add an Event</h3>
                 <div class="mt-3">
-                    <form>
+                    <form id="addEventForm">
                         <div class="form-container form-group">
                             <div>
                                 <label for="summary">Summary </label>
-                                <input id="summary" class="form-control" type="text" required>
+                                <input id="summary" name="summary" class="form-control" type="text" required>
                             </div>
                             <div>
                                 <label for="description">Description </label>
-                                <input id="description" class="form-control" type="text" required>
+                                <input id="description" name="description" class="form-control" type="text" required>
                             </div>
                             <div>
                                 <label for="startDate">Start Date </label>
-                                <input id="startDate" class="form-control" type="date" required>
+                                <input id="startDate" name="startDate" class="form-control" type="date" required>
                             </div>
                             <div>
                                 <label for="endDate">End Date </label>
-                                <input id="endDate" class="form-control" type="date" required>
+                                <input id="endDate" name="endDate" class="form-control" type="date" required>
                             </div>
                             <div>
                                 <label for="startTime">Start Time </label>
-                                <input id="startTime" class="form-control" type="time" required>
+                                <input id="startTime" name="startTime" class="form-control" type="time" required>
                             </div>
                             <div>
                                 <label for="endTime">End Time </label>
-                                <input id="endTime" class="form-control" type="time" required>
+                                <input id="endTime" name="endTime" class="form-control" type="time" required>
                             </div>
 
                             <div>
@@ -62,15 +71,14 @@
     </div>
 </div>
 
-
 <!----------------------------------------------BEGIN Scripts------------------------------------------------------->
-<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="js/calendar.js"></script>
 <script>
-
 
     let calendar;
     /*
@@ -107,7 +115,6 @@
         calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             eventClick: response => {
-                console.log(response);
 
                 let title = response.event.title;
                 let startDate = response.event.startStr.split('T')[0]
@@ -144,24 +151,38 @@
         });
     }
 
-
+    /*
+    * Add an event to the calender
+    * */
     $("#submit-btn").on("click", (event) => {
+
         event.preventDefault()
+        const addEventForm = $("#addEventForm")
+        if (addEventForm.valid()) {
+            const summary = $("#summary").val()
+            const description = $("#description").val()
+            const startDate = $("#startDate").val()
+            const endDate = $("#endDate").val()
+            const startTime = $("#startTime").val()
+            const endTime = $("#endTime").val()
 
-        const summary = $("#summary").val()
-        const description = $("#description").val()
-        const startDate = $("#startDate").val()
-        const endDate = $("#endDate").val()
-        const startTime = $("#startTime").val()
-        const endTime = $("#endTime").val()
+            const data = {summary, description, startDate, endDate, startTime, endTime}
 
-        const data = {
-            summary,
-            description,
-            startDate,
-            endDate,
-            startTime,
-            endTime
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8081/api/events",
+                data: JSON.stringify(data),
+                success: (result) => {
+                    addEventForm.trigger("reset");
+                    swal({
+                        title: "Success",
+                        content: "Event added successfully!",
+                        icon: 'images/logo.jpg',
+                    });
+                    getAllEvents();
+                }
+            })
         }
 
         $.ajax({
