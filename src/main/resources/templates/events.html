@@ -27,7 +27,7 @@
             <div class="w-100 pl-5">
                 <h3>Add an Event</h3>
                 <div class="mt-3">
-                    <form id="addEventForm">
+                    <form id="add-event-form">
                         <div class="form-container form-group">
                             <div>
                                 <label for="summary">Summary </label>
@@ -38,20 +38,20 @@
                                 <input id="description" name="description" class="form-control" type="text" required>
                             </div>
                             <div>
-                                <label for="startDate">Start Date </label>
-                                <input id="startDate" name="startDate" class="form-control" type="date" required>
+                                <label for="start-date">Start Date </label>
+                                <input id="start-date" name="startDate" class="form-control" type="date" required>
                             </div>
                             <div>
-                                <label for="endDate">End Date </label>
-                                <input id="endDate" name="endDate" class="form-control" type="date" required>
+                                <label for="end-date">End Date </label>
+                                <input id="end-date" name="endDate" class="form-control" type="date" required>
                             </div>
                             <div>
-                                <label for="startTime">Start Time </label>
-                                <input id="startTime" name="startTime" class="form-control" type="time" required>
+                                <label for="start-time">Start Time </label>
+                                <input id="start-time" name="start-time" class="form-control" type="time" required>
                             </div>
                             <div>
-                                <label for="endTime">End Time </label>
-                                <input id="endTime" name="endTime" class="form-control" type="time" required>
+                                <label for="end-time">End Time </label>
+                                <input id="end-time" name="endTime" class="form-control" type="time" required>
                             </div>
                             <div>
                                 <input id="submit-btn" class="btn btn-primary" type="submit" value="Add Event">
@@ -69,6 +69,7 @@
 
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="js/calendar.js"></script>
@@ -115,14 +116,15 @@
                 let startTime = response.event.startStr.split('T')[1].split('+')[0]
                 let endDate = response.event.endStr.split('T')[0]
                 let endTime = response.event.endStr.split('T')[1].split('+')[0]
-                span.innerHTML = '<ul>' + '<li>Start Date: ' + startDate + '</li>' +
-                    '<li>End Date: ' + endDate + '</li>' +
-                    '<li>Start Time: ' + startTime + '</li>' +
-                    '<li>End Time: ' + endTime + '</li>' + '</ul>'
+                span.innerHTML =
+                    '<p>Start Date: ' + startDate + '</p>' +
+                    '<p>End Date: ' + endDate + '</p>' +
+                    '<p>Start Time: ' + startTime + '</p>' +
+                    '<p>End Time: ' + endTime + '</p>'
                 swal({
                     title: title,
                     content: span,
-                    icon: 'images/logo.jpg',
+                    icon: 'images/logo.png',
                 });
             }
 
@@ -136,14 +138,14 @@
     $("#submit-btn").on("click", (event) => {
 
         event.preventDefault()
-        const addEventForm = $("#addEventForm")
+        const addEventForm = $("#add-event-form")
         if (addEventForm.valid()) {
             const summary = $("#summary").val()
             const description = $("#description").val()
-            const startDate = $("#startDate").val()
-            const endDate = $("#endDate").val()
-            const startTime = $("#startTime").val()
-            const endTime = $("#endTime").val()
+            const startDate = $("#start-date").val()
+            const endDate = $("#end-date").val()
+            const startTime = $("#start-time").val()
+            const endTime = $("#end-time").val()
 
             const data = {summary, description, startDate, endDate, startTime, endTime}
 
@@ -155,9 +157,8 @@
                 success: (result) => {
                     addEventForm.trigger("reset");
                     swal({
-                        title: "Success",
-                        content: "Event added successfully!",
-                        icon: 'images/logo.jpg',
+                        title: "Event added successfully!",
+                        icon: 'images/logo.png',
                     });
                     getAllEvents();
                 }
