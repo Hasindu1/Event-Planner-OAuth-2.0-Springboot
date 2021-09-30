@@ -14,10 +14,24 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top mr-3">
-            Event Planner
+            <img src="images/logo.png"  alt="" width="50" height="50" class="d-inline-block mr-3 ">
+            <h2 class="d-inline-block pt-2"> Event Planner</h2>
+
         </a>
+       <div class="mr-3">
+           <ul class="navbar-nav mr-auto">
+               <li class="nav-item active mr-5 ">
+                   <span class="d-inline-block" id="user-name-text" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="Hi">
+                   <a class="nav-link" href="#"><img id="profile-img" src=""></a>
+                   </span>
+
+               </li>
+
+           </ul>
+       </div>
+
     </div>
+
 </nav>
 <div>
     <div class="px-5 mt-4 mb-5">
@@ -80,6 +94,26 @@
 <script>
 
     let calendar;
+    /*
+   *Get User Details through REST endpoint
+   */
+    let getUserDetails = () => {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/users-api/users",
+            success: (result) => {
+                let profilePicture =result.profilePicture;
+                let userName=result.name;
+                console.log(result)
+                $("#profile-img").attr({ "src": profilePicture });
+                $("#user-name-text").attr('title', 'Hi ' + userName)
+                    .tooltip('fixTitle')
+                    .tooltip('show');
+
+            }
+        })
+    }
+    getUserDetails();
     /*
     *Get all calendar events through REST endpoint
     */
@@ -184,6 +218,7 @@
             })
         }
     })
+
 </script>
 
 <!--------------------------------------------END Scripts----------------------------------------------------------->

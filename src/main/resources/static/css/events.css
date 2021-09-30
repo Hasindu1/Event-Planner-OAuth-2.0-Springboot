@@ -3,11 +3,25 @@
     width: 3000px;
 }
 
-ul{
-    list-style-type:none;
+ul {
+    list-style-type: none;
 }
 
 .form-container div {
     margin-bottom: 37px;
 }
+
+.navbar-nav {
+    flex-direction: row;
+
+}
+
+#profile-img {
+
+    border-radius: 50%;
+    height: 50px;
+
+}
+
+
 
