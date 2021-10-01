@@ -12,4 +12,5 @@ import lombok.Data;
 public class UserDetailsResponseDTO {
     private String name;
     private String profilePicture;
+    private String email;
 }

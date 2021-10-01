@@ -24,7 +24,7 @@ import java.util.Map;
 public class UserDetailsController {
 
     /**
-     * Rest endpoint for get logged in user details
+     * Rest endpoint for get oAuth2 logged in user details
      *
      * @return
      * @throws IOException
@@ -37,6 +37,8 @@ public class UserDetailsController {
         UserDetailsResponseDTO userDetailsResponseDTO = new UserDetailsResponseDTO();
         userDetailsResponseDTO.setName(userDetails.get("name").toString());
         userDetailsResponseDTO.setProfilePicture(userDetails.get("picture").toString());
+        userDetailsResponseDTO.setEmail(userDetails.get("email").toString());
+
 
         return new ResponseEntity<>(userDetailsResponseDTO, HttpStatus.OK);
     }
