@@ -21,12 +21,14 @@
            <ul class="navbar-nav mr-auto">
                <li class="nav-item active mt-3 mr-3">
                    <span id="user-name-text" class="text-light"></span>
-               </li>
-               <li class="nav-item active mr-2">
+               </li>          
+               <li class="nav-item active mr-5 ">
                    <span class="d-inline-block">
                    <a class="nav-link" href="#"><img id="profile-img" src=""></a>
                    </span>
+                 
                </li>
+
            </ul>
        </div>
 
@@ -104,9 +106,13 @@
             success: (result) => {
                 let profilePicture =result.profilePicture;
                 let userName=result.name;
+                let email=result.email;
                 console.log(result)
                 $("#profile-img").attr({ "src": profilePicture });
                 $("#user-name-text").text('Hi, ' + userName);
+                $("#email-text").attr('title',email)
+                    .tooltip('fixTitle')
+                    .tooltip('show');
             }
         })
     }
