@@ -13,14 +13,16 @@
 <body>
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="images/logo.png"  alt="" width="50" height="50" class="d-inline-block mr-3 ">
-            <h2 class="d-inline-block pt-2"> Event Planner</h2>
-
+            <h2 class="d-inline-block"> Event Planner</h2>
         </a>
-       <div class="mr-3">
+       <div class="mr-2">
            <ul class="navbar-nav mr-auto">
-               <li class="nav-item active mr-5 ">
+               <li class="nav-item active mt-3 mr-3">
+                   <span id="user-name-text" class="text-light"></span>
+               </li>
+               <li class="nav-item active mr-2">
                    <span class="d-inline-block" id="email-text" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="Hi">
                    <a class="nav-link" href="#"><img id="profile-img" src=""></a>
                    </span>
@@ -36,7 +38,7 @@
 
 </nav>
 <div>
-    <div class="px-5 mt-4 mb-5">
+    <div class="px-5 mt-5 mb-5">
         <div class="d-flex">
             <div id="calendar" class="main-container"></div>
 
@@ -105,13 +107,14 @@
             url: "http://localhost:8081/users-api/users",
             success: (result) => {
                 let profilePicture =result.profilePicture;
+                let userName=result.name;
                 let email=result.email;
                 console.log(result)
                 $("#profile-img").attr({ "src": profilePicture });
+                $("#user-name-text").text('Hi, ' + userName);
                 $("#email-text").attr('title',email)
                     .tooltip('fixTitle')
                     .tooltip('show');
-
             }
         })
     }
