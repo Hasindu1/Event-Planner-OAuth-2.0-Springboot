@@ -29,6 +29,8 @@
 
                </li>
 
+
+
            </ul>
        </div>
 
@@ -106,9 +108,13 @@
             success: (result) => {
                 let profilePicture =result.profilePicture;
                 let userName=result.name;
+                let email=result.email;
                 console.log(result)
                 $("#profile-img").attr({ "src": profilePicture });
                 $("#user-name-text").text('Hi, ' + userName);
+                $("#email-text").attr('title',email)
+                    .tooltip('fixTitle')
+                    .tooltip('show');
             }
         })
     }
