@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Events Management</title>
     <link rel="icon" href="images/logo.ico">
-    <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/events.css">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
@@ -26,11 +26,7 @@
                    <span class="d-inline-block" id="email-text" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="Hi">
                    <a class="nav-link" href="#"><img id="profile-img" src=""></a>
                    </span>
-
                </li>
-
-
-
            </ul>
        </div>
 
@@ -73,7 +69,7 @@
                             </div>
                             <div>
                                 <label for="files">Upload Banner image</label>
-                                <input id="files" class="form-control" type="file" name="files" multiple>
+                                <input id="files" name="files" class="form-control" type="file" multiple>
                             </div>
                             <div>
                                 <input id="submit-btn" class="btn btn-primary" type="submit" value="Add Event">
@@ -147,7 +143,7 @@
     /**
      * Render Calendar
      */
-    document.addEventListener('DOMContentLoaded', function () {
+    $(function () {
         let calendarEl = document.getElementById('calendar');
         let span = document.createElement("span");
         calendar = new FullCalendar.Calendar(calendarEl, {
@@ -170,7 +166,6 @@
                     icon: 'images/logo.png',
                 });
             }
-
         });
         calendar.render();
     });
@@ -192,36 +187,36 @@
     /*
     * Add an event to the calender
     * */
-    $("#submit-btn").on("click", (event) => {
-
-        event.preventDefault()
-        const addEventForm = $("#add-event-form")
-        if (addEventForm.valid()) {
-            const summary = $("#summary").val()
-            const description = $("#description").val()
-            const startDate = $("#start-date").val()
-            const endDate = $("#end-date").val()
-            const startTime = $("#start-time").val()
-            const endTime = $("#end-time").val()
-
-            const data = {summary, description, startDate, endDate, startTime, endTime}
-
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "http://localhost:8081/api/events",
-                data: JSON.stringify(data),
-                success: (result) => {
-                    uploadFile();
-                    addEventForm.trigger("reset");
-                    swal({
-                        title: "Event added successfully!",
-                        icon: 'images/logo.png',
-                    });
-                    getAllEvents();
-                }
-            })
-        }
+    $(function() {
+        $("#submit-btn").click((event) => {
+            event.preventDefault()
+            const addEventForm = $("#add-event-form")
+            addEventForm.validate();
+            if (addEventForm.valid()) {
+                const summary = $("#summary").val()
+                const description = $("#description").val()
+                const startDate = $("#start-date").val()
+                const endDate = $("#end-date").val()
+                const startTime = $("#start-time").val()
+                const endTime = $("#end-time").val()
+                const data = {summary, description, startDate, endDate, startTime, endTime}
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "http://localhost:8081/api/events",
+                    data: JSON.stringify(data),
+                    success: (result) => {
+                        uploadFile();
+                        addEventForm.trigger("reset");
+                        swal({
+                            title: "Event added successfully!",
+                            icon: 'images/logo.png',
+                        });
+                        getAllEvents();
+                    }
+                })
+            }
+        })
     })
 
 </script>
