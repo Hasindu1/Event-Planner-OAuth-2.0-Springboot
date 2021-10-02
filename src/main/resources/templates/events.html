@@ -94,6 +94,18 @@
 <script src="js/calendar.js"></script>
 <script>
 
+    $("form").keyup(function () {
+        window.localStorage.setItem("Summary", $("#summary").val())
+        window.localStorage.setItem("Description", $("#description").val())
+    });
+
+    $("form").change(function () {
+        window.localStorage.setItem("Start Date", $("#start-date").val())
+        window.localStorage.setItem("End Date", $("#end-date").val())
+        window.localStorage.setItem("Start Time", $("#start-time").val())
+        window.localStorage.setItem("End Time", $("#end-time").val())
+    });
+
     let calendar;
     /*
    *Get User Details through REST endpoint
