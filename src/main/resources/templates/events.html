@@ -14,21 +14,22 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="images/logo.png"  alt="" width="50" height="50" class="d-inline-block mr-3 ">
+            <img src="images/logo.png" alt="" width="50" height="50" class="d-inline-block mr-3 ">
             <h2 class="d-inline-block"> Event Planner</h2>
         </a>
-       <div class="mr-2">
-           <ul class="navbar-nav mr-auto">
-               <li class="nav-item active mt-3 mr-3">
-                   <span id="user-name-text" class="text-light"></span>
-               </li>
-               <li class="nav-item active mr-2">
-                   <span class="d-inline-block" id="email-text" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="Hi">
+        <div class="mr-2">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active mt-3 mr-3">
+                    <span id="user-name-text" class="text-light"></span>
+                </li>
+                <li class="nav-item active mr-2">
+                   <span class="d-inline-block" id="email-text" tabindex="0" data-toggle="tooltip"
+                         data-placement="bottom" title="Hi">
                    <a class="nav-link" href="#"><img id="profile-img" src=""></a>
                    </span>
-               </li>
-           </ul>
-       </div>
+                </li>
+            </ul>
+        </div>
 
     </div>
 
@@ -93,6 +94,18 @@
 <script src="js/calendar.js"></script>
 <script>
 
+    $("form").keyup(function () {
+        window.localStorage.setItem("Summary", $("#summary").val())
+        window.localStorage.setItem("Description", $("#description").val())
+    });
+
+    $("form").change(function () {
+        window.localStorage.setItem("Start Date", $("#start-date").val())
+        window.localStorage.setItem("End Date", $("#end-date").val())
+        window.localStorage.setItem("Start Time", $("#start-time").val())
+        window.localStorage.setItem("End Time", $("#end-time").val())
+    });
+
     let calendar;
     /*
    *Get User Details through REST endpoint
@@ -102,14 +115,13 @@
             type: "GET",
             url: "http://localhost:8081/users-api/users",
             success: (result) => {
-                let profilePicture =result.profilePicture;
-                let userName=result.name;
-                let email=result.email;
-                console.log(result)
-                $("#profile-img").attr({ "src": profilePicture });
+                let profilePicture = result.profilePicture;
+                let userName = result.name;
+                let email = result.email;
+                $("#profile-img").attr({"src": profilePicture});
                 $("#user-name-text").text('Hi, ' + userName);
-                $("#email-text").attr('title',email)
-                    .tooltip('fixTitle')
+                $("#email-text").attr('title', email)
+                    .tooltip('_fixTitle')
                     .tooltip('show');
             }
         })
