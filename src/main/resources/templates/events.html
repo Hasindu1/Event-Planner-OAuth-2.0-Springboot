@@ -143,7 +143,7 @@
     /**
      * Render Calendar
      */
-    $(function () {
+    $(()=> {
         let calendarEl = document.getElementById('calendar');
         let span = document.createElement("span");
         calendar = new FullCalendar.Calendar(calendarEl, {
@@ -187,7 +187,7 @@
     /*
     * Add an event to the calender
     * */
-    $(function() {
+    $(()=> {
         $("#submit-btn").click((event) => {
             event.preventDefault()
             const addEventForm = $("#add-event-form")
@@ -218,6 +218,16 @@
             }
         })
     })
+    /**
+     * Redirect to login page after an hour
+     */
+    let redirectToLoginAfterOneHour = ()=>{
+        setTimeout(()=>{ window.location.replace("http://localhost:8081/login.html") }, 3600000);
+
+    }
+    redirectToLoginAfterOneHour();
+
+
 
 </script>
 
