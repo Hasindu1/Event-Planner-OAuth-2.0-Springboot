@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Events Management</title>
     <link rel="icon" href="images/logo.ico">
-    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/events.css">
     <link rel="stylesheet" href="css/calendar.css">
@@ -42,37 +41,52 @@
             <div class="w-100 pl-5">
                 <h3>Add an Event</h3>
                 <div class="mt-3">
-                    <form id="add-event-form">
-                        <div class="form-container form-group">
+                    <form id="add-event-form" class="needs-validation" novalidate>
+                        <div class="form-group">
                             <div>
                                 <label for="summary">Summary </label>
                                 <input id="summary" name="summary" class="form-control" type="text" required>
+                                <div class="invalid-feedback">Please add a summary.</div>
+                                <div class="valid-feedback">Looks good!</div>
+
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="description">Description </label>
                                 <input id="description" name="description" class="form-control" type="text" required>
+                                <div class="invalid-feedback">Please add a description.</div>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="start-date">Start Date </label>
                                 <input id="start-date" name="startDate" class="form-control" type="date" required>
+                                <div class="invalid-feedback">Please select a start date.</div>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="end-date">End Date </label>
                                 <input id="end-date" name="endDate" class="form-control" type="date" required>
+                                <div class="invalid-feedback">Please select an end date.</div>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="start-time">Start Time </label>
                                 <input id="start-time" name="start-time" class="form-control" type="time" required>
+                                <div class="invalid-feedback">Please select a start time.</div>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="end-time">End Time </label>
                                 <input id="end-time" name="endTime" class="form-control" type="time" required>
+                                <div class="invalid-feedback">Please select an end time.</div>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label for="files">Upload Banner image</label>
-                                <input id="files" name="files" class="form-control" type="file" multiple>
+                                <input id="files" name="files" class="form-control" type="file" multiple required>
+                                <div class="invalid-feedback">Please add a banner image.</div>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <input id="submit-btn" class="btn btn-primary" type="submit" value="Add Event">
                             </div>
                         </div>
@@ -87,8 +101,7 @@
 <!----------------------------------------------BEGIN Scripts------------------------------------------------------->
 
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="js/calendar.js"></script>
@@ -107,6 +120,7 @@
     });
 
     let calendar;
+
     /*
    *Get User Details through REST endpoint
    */
@@ -122,7 +136,6 @@
                 $("#user-name-text").text('Hi, ' + userName);
                 $("#email-text").attr('title', email)
                     .tooltip('_fixTitle')
-                    .tooltip('show');
             }
         })
     }
@@ -155,7 +168,7 @@
     /**
      * Render Calendar
      */
-    $(()=> {
+    $(() => {
         let calendarEl = document.getElementById('calendar');
         let span = document.createElement("span");
         calendar = new FullCalendar.Calendar(calendarEl, {
@@ -183,8 +196,8 @@
     });
 
     let uploadFile = () => {
-        var fd = new FormData();
-        var files = $('#files')[0].files;
+        const fd = new FormData();
+        const files = $('#files')[0].files;
         fd.append('files', files[0]);
 
         $.ajax({
@@ -199,47 +212,49 @@
     /*
     * Add an event to the calender
     * */
-    $(()=> {
-        $("#submit-btn").click((event) => {
-            event.preventDefault()
-            const addEventForm = $("#add-event-form")
-            addEventForm.validate();
-            if (addEventForm.valid()) {
-                const summary = $("#summary").val()
-                const description = $("#description").val()
-                const startDate = $("#start-date").val()
-                const endDate = $("#end-date").val()
-                const startTime = $("#start-time").val()
-                const endTime = $("#end-time").val()
-                const data = {summary, description, startDate, endDate, startTime, endTime}
-                $.ajax({
-                    type: "POST",
-                    contentType: "application/json",
-                    url: "http://localhost:8081/api/events",
-                    data: JSON.stringify(data),
-                    success: (result) => {
-                        uploadFile();
-                        addEventForm.trigger("reset");
-                        swal({
-                            title: "Event added successfully!",
-                            icon: 'images/logo.png',
-                        });
-                        getAllEvents();
+    (function () {
+        'use strict';
+        $(function () {
+            const forms = $(".needs-validation");
+            const validation = Array.prototype.filter.call(forms, (form) => {
+                form.addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    if (form.checkValidity() === true) {
+                        const summary = $("#summary").val()
+                        const description = $("#description").val()
+                        const startDate = $("#start-date").val()
+                        const endDate = $("#end-date").val()
+                        const startTime = $("#start-time").val()
+                        const endTime = $("#end-time").val()
+                        const data = {summary, description, startDate, endDate, startTime, endTime}
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json",
+                            url: "http://localhost:8081/api/events",
+                            data: JSON.stringify(data),
+                            success: (result) => {
+                                uploadFile();
+                                form.reset();
+                                swal({title: "Event added successfully!", icon: 'images/logo.png'});
+                                getAllEvents();
+                            }
+                        })
                     }
-                })
-            }
-        })
-    })
+                    form.classList.add('was-validated');
+                });
+            });
+        });
+    })();
+
     /**
      * Redirect to login page after an hour
      */
-    let redirectToLoginAfterOneHour = ()=>{
-        setTimeout(()=>{ window.location.replace("http://localhost:8081/login.html") }, 3600000);
-
+    let redirectToLoginAfterOneHour = () => {
+        setTimeout(() => {
+            window.location.replace("http://localhost:8081/login.html")
+        }, 3600000);
     }
     redirectToLoginAfterOneHour();
-
-
 
 </script>
 
