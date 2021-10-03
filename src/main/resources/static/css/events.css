@@ -7,10 +7,6 @@ ul {
     list-style-type: none;
 }
 
-.form-container div {
-    margin-bottom: 30px;
-}
-
 .navbar-nav {
     flex-direction: row;
 
