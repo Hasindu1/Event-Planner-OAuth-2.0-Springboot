@@ -3,7 +3,7 @@ package com.development.secure.software.eventplanner.controller;
 import com.development.secure.software.eventplanner.dto.EventRequestDTO;
 import com.development.secure.software.eventplanner.dto.EventResponseDTO;
 import com.development.secure.software.eventplanner.service.CalendarService;
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
