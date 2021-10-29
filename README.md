@@ -43,13 +43,19 @@ Services.Application uses OAuth2.0 framework for authentication and  grant requi
  ### Validations
  
  <p align="left">
-  <img src="../master/ui-images/form-validation.PNG"/>
+  <img src="../master/ui-images/validation.PNG"/>
  </p>
  
   ### Login
  
  <p align="left">
   <img src="../master/ui-images/login.PNG"/>
+ </p>
+ 
+  ### 404
+ 
+ <p align="left">
+  <img src="../master/ui-images/404.PNG"/>
  </p>
  
  ### Google Login
