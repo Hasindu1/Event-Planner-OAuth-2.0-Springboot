@@ -30,20 +30,20 @@ Services.Application uses OAuth2.0 framework for authentication and  grant requi
 ## OAuth2.0 flow(Grant type: Authorization code)
 
  <p align="left">
-  <img src="../master/ui-images/oauth2-flow.PNG"/>
+  <img src="../master/ui-images/oauth2-flow.jpeg"/>
  </p>
 
 ## Main User Interfaces
  ### Home 
  
  <p align="left">
-  <img src="../master/ui-images/home.PNG"/>
+  <img src="../master/ui-images/home.png"/>
  </p>
  
  ### Validations
  
  <p align="left">
-  <img src="../master/ui-images/validation.PNG"/>
+  <img src="../master/ui-images/validation.png"/>
  </p>
  
   ### Login
