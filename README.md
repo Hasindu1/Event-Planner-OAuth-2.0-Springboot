@@ -1,9 +1,9 @@
-# Event-Planner-OAuth-2.0-Springboot
+# :calendar: Event-Planner-OAuth-2.0-Springboot
 
 ## Introduction
-An educational puropse web application which was mainly developed to illustrate the OAuth2.0 framework
-usage.The  web application is developed to provide the event planning services to users using Google Calendar and Google Drive 
-Services.Application uses OAuth2.0 framework for authentication and  grant required autorization permissions for resources.
+An educational purpose web application which was mainly developed to illustrate the OAuth2.0 framework usage. 
+The web application is developed to provide event planning services to users by consuming Google Calendar and Google Drive Services. 
+The application uses the OAuth2.0 framework for authentication and grant required authorization permissions for resources.
 
 ## Technology Stack
 
@@ -21,10 +21,10 @@ Services.Application uses OAuth2.0 framework for authentication and  grant requi
 ## Features
 * Quick user login with Google Login(User doesn't need to signup for the application by creating a seperate account).
 * Application endpoints have been secured using Spring Security(User cannot bypass and visit for other pages before proceed with a 
-* sucessful login)
+  sucessful login)
 * User can add new events to Google Calendar and view the added events along with event details.
 * User can upload the event related files(ex: flyer) to Google Drive.
-* User's basic profile details like profile picture,email and name will be displayed on the top navigation bar by obtaining from the Google.
+* User's basic profile details like profile picture,email and name will be displayed on the top navigation bar by obtaining from Google.
 
 
 ## OAuth2.0 flow(Grant type: Authorization code)
@@ -58,6 +58,7 @@ Services.Application uses OAuth2.0 framework for authentication and  grant requi
  <p align="left">
   <img src="../master/ui-images/google-login-one.PNG"/>
  </p>
+ 
  
   <p align="left">
   <img src="../master/ui-images/google-login-two.PNG"/>
